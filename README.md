@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://crates.io/crates/argon2min"><img src="https://img.shields.io/crates/v/argon2min.svg" alt="Crates.io"/></a>
   <a href="https://docs.rs/argon2min"><img src="https://docs.rs/argon2min/badge.svg" alt="Documentation"/></a>
-  <a href="https://github.com/ApiliumCode/argon2min/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"/></a>
+  <a href="https://github.com/ApiliumCode/argon2min/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"/></a>
   <a href="https://github.com/ApiliumCode/argon2min/actions"><img src="https://github.com/ApiliumCode/argon2min/workflows/CI/badge.svg" alt="CI Status"/></a>
 </p>
 
@@ -72,7 +72,7 @@ This crate is part of the [AIngle](https://github.com/ApiliumCode/aingle) ecosys
 
 ## License
 
-Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
+Licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
