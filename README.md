@@ -1,85 +1,81 @@
-argon2min
-========
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ApiliumCode/aingle/main/assets/aingle.svg" alt="AIngle Logo" width="200"/>
+</p>
 
-[![()
-Status](https://travis-ci.org/FauxFaux/argon2min.svg)](https://travis-ci.org/FauxFaux/argon2min)
+<h1 align="center">argon2min</h1>
 
-This is a purely Rust-based library that provides both variants of the
-state-of-the-art Argon2 hashing algorithm, suitable for password hashing and
-password-based key derivation.
+<p align="center">
+  <strong>Minimal Argon2 password hashing for the AIngle ecosystem</strong>
+</p>
+
+<p align="center">
+  <a href="https://crates.io/crates/argon2min"><img src="https://img.shields.io/crates/v/argon2min.svg" alt="Crates.io"/></a>
+  <a href="https://docs.rs/argon2min"><img src="https://docs.rs/argon2min/badge.svg" alt="Documentation"/></a>
+  <a href="https://github.com/ApiliumCode/argon2min/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"/></a>
+  <a href="https://github.com/ApiliumCode/argon2min/actions"><img src="https://github.com/ApiliumCode/argon2min/workflows/CI/badge.svg" alt="CI Status"/></a>
+</p>
+
+---
+
+## Overview
+
+A pure Rust implementation of the Argon2 password hashing algorithm, providing both Argon2i and Argon2d variants. This library is designed for secure password hashing and password-based key derivation within the AIngle distributed systems framework.
+
+## Features
+
+- **Pure Rust** - No C dependencies, safe and portable
+- **Argon2i** - Side-channel resistant, recommended for password hashing
+- **Argon2d** - Faster variant for non-interactive scenarios
+- **Constant-time verification** - Prevents timing attacks
+- **Zero-on-drop** - Sensitive data is securely erased from memory
+
+## Installation
+
+Add to your `Cargo.toml`:
+
+```toml
+[dependencies]
+argon2min = "0.1"
+```
 
 ## Usage
 
-From `examples/helloworld.rs`:
-
 ```rust
-extern crate argon2min;
+use argon2min;
 
-pub fn main() {
-    let (password, salt) = ("argon2i!", "delicious salt");
-    println!("argon2i_simple(\"{}\", \"{}\"):", password, salt);
-    for byte in argon2min::argon2i_simple(&password, &salt).iter() {
-        print!("{:02x}", byte);
-    }
-    println!("");
+fn main() {
+    let password = "secure_password";
+    let salt = "random_salt_value";
+
+    // Argon2i - recommended for password hashing
+    let hash = argon2min::argon2i_simple(password, salt);
+
+    println!("Hash: {}", hex::encode(&hash));
 }
 ```
 
-outputs:
+## Variants
 
-```
-argon2i_simple("argon2i!", "delicious salt"):
-e254b28d820f26706a19309f1888cefd5d48d91384f35dc2e3fe75c3a8f665a6
-```
+| Variant | Use Case | Security |
+|---------|----------|----------|
+| **Argon2i** | Password hashing, key derivation | Side-channel resistant |
+| **Argon2d** | Cryptocurrency, non-interactive | Faster, data-dependent |
 
-There are two variants of Argon2 that differ in the manner by which reference
-indices are computed during block-filling rounds. Argon2d does this in a faster
-but data-dependent fashion that could be vulnerable to side-channel
-[attacks][1], whereas Argon2i ("i" denoting independence from plaintext input)
-works slower but is immune to such attacks and is therefore the preferred choice
-for password hashing.
+## Part of AIngle
 
-## TODO
-
-- [x] Zero-on-drop trait for sensitive(s): `Matrix`
-- [x] Constant-time verification API.
-- [x] Benchmarks.
-- [ ] Fuzz.
-- [ ] Prove safety of unchecked accesses in `Block`, `Matrix`.
-
-## Benchmarks
-
-Our primary benchmarks are single-threaded runs of Argon2i with
-default parameters against the [reference implementation][2]. In order to
-compile and run this, first pull in the C sources:
-
-```bash
-$ git submodule init
-$ git submodule update benches/cargon/phc-winner-argon2
-```
-
-and then benchmark with Cargo as usual:
-
-```
-$ export RUSTFLAGS='-C target-feature=+avx'
-$ cargo bench --features="bench_ref"
-
-# output trimmed for brevity
-
-     Running target/release/versus_cargon-b5955411e1594c85
-
-running 5 tests
-test ensure_identical_hashes ... ignored
-test bench_argon2min_i ... bench:   6,856,774 ns/iter (+/- 197,405)
-test bench_cargon_i   ... bench:   3,856,783 ns/iter (+/- 142,580)
-
-test result: ok. 0 passed; 0 failed; 0 ignored; 2 measured
-```
+This crate is part of the [AIngle](https://github.com/ApiliumCode/aingle) ecosystem - a Semantic DAG framework for IoT and distributed AI applications.
 
 ## References
 
-["Argon2: The Memory-Hard Function for Password Hashing and Other
-Applications"][1]
+- [Argon2 Specification (PDF)](https://github.com/P-H-C/phc-winner-argon2/raw/master/argon2-specs.pdf)
+- [PHC Winner Argon2](https://github.com/p-h-c/phc-winner-argon2)
 
-[1]: https://github.com/P-H-C/phc-winner-argon2/raw/master/argon2-specs.pdf
-[2]: https://github.com/p-h-c/phc-winner-argon2
+## License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
+
+---
+
+<p align="center">
+  <sub>Maintained by <a href="https://apilium.com">Apilium Technologies</a> - Tallinn, Estonia</sub>
+</p>
