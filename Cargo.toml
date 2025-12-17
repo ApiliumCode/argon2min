@@ -1,0 +1,24 @@
+[package]
+name = "argon2min"
+version = "0.3.1"
+authors = ["Chris West <git@goeswhere.com>", "bryant <bryant@defrag.in>"]
+repository = "https://github.com/ApiliumCode/argon2min"
+description = "The pure Rust password hashing library that runs on Argon2."
+readme = "README.md"
+keywords = ["crypto", "argon2", "argon2i", "argon2d", "argon2id", "hash"]
+license = "MIT"
+edition = "2021"
+rust-version = "1.70"
+
+[features]
+bench_ref = ["cargon"]
+
+[dependencies]
+blake2 = "0.10"
+
+[dependencies.cargon]
+path = "benches/cargon"
+optional = true
+
+[profile.bench]
+lto = true
